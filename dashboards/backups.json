@@ -295,7 +295,20 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/KnotATypo/Grafana-Dashboards/blob/main/dashboards/backups-copy.json"
+      }
+    ],
     "liveNow": false,
     "preload": false,
     "tags": [],
@@ -319,7 +332,7 @@
       "timezone": "browser",
       "to": "now"
     },
-    "title": "Backups Copy",
+    "title": "Backups",
     "variables": [
       {
         "kind": "QueryVariable",
