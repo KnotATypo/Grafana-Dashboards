@@ -1851,12 +1851,25 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/KnotATypo/Grafana-Dashboards/blob/main/dashboards/climate.json"
+      }
+    ],
     "liveNow": true,
     "preload": false,
     "tags": [],
     "timeSettings": {
-      "autoRefresh": "1m",
+      "autoRefresh": "5m",
       "autoRefreshIntervals": [
         "5s",
         "10s",
