@@ -766,12 +766,25 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/KnotATypo/Grafana-Dashboards/blob/main/dashboards/power.json"
+      }
+    ],
     "liveNow": false,
     "preload": false,
     "tags": [],
     "timeSettings": {
-      "autoRefresh": "10s",
+      "autoRefresh": "30s",
       "autoRefreshIntervals": [
         "5s",
         "10s",
@@ -814,13 +827,11 @@
           "current": {
             "text": [
               "zigbee2mqtt/plug/living/server",
-              "zigbee2mqtt/plug/josh_office/pc",
-              "zigbee2mqtt/plug/bedroom/ac"
+              "zigbee2mqtt/plug/josh_office/pc"
             ],
             "value": [
               "zigbee2mqtt/plug/living/server",
-              "zigbee2mqtt/plug/josh_office/pc",
-              "zigbee2mqtt/plug/bedroom/ac"
+              "zigbee2mqtt/plug/josh_office/pc"
             ]
           },
           "definition": "SELECT DISTINCT(topic) \nFROM plugs\nWHERE timestamp \u003e (NOW() - interval '7d');",
