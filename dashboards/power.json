@@ -390,7 +390,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "WITH power_deltas AS (\n  SELECT\n    timestamp,\n    topic,\n    power,\n    EXTRACT(EPOCH FROM (timestamp - LAG(timestamp) OVER (PARTITION BY topic ORDER BY timestamp))) / 3600.0 AS hours_between\n  FROM plugs\n  WHERE\n    topic IN (${topic})\n    AND $__timeFilter(timestamp)\n)\nSELECT\n  time_bucket('1d', timestamp) AS day,\n  topic,\n  SUM(power * LEAST(1, hours_between)) AS energy_wh\nFROM power_deltas\nWHERE hours_between IS NOT NULL\nGROUP BY day, topic\nORDER BY day;\n",
+                        "rawSql": "WITH power_deltas AS (\n  SELECT\n    timestamp,\n    entity_id,\n    value,\n    EXTRACT(\n      EPOCH\n      FROM\n        (\n          timestamp - LAG(timestamp) OVER (\n            PARTITION BY entity_id\n            ORDER BY\n              timestamp\n          )\n        )\n    ) / 3600.0 AS hours_between\n  FROM\n    plug_power\n  WHERE\n    entity_id IN (${entity_id})\n    AND $__timeFilter(timestamp)\n)\nSELECT\n  time_bucket('1d', timestamp) AS day,\n  entity_id,\n  SUM(value * LEAST(1, hours_between)) AS energy_wh\nFROM\n  power_deltas\nWHERE\n  hours_between IS NOT NULL\nGROUP BY\n  day,\n  entity_id\nORDER BY\n  day;",
                         "sql": {
                           "columns": [
                             {
