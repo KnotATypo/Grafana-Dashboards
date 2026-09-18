@@ -425,7 +425,7 @@
                   "spec": {
                     "options": {
                       "fields": [
-                        "topic"
+                        "entity_id"
                       ],
                       "keepFields": false,
                       "naming": {
@@ -503,26 +503,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/kitchen/fridge energy_wh"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Fridge"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "semi-dark-purple",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/josh_office/pc energy_wh"
+                      "options": "sensor.plug_josh_office_pc_power energy_wh",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -541,7 +523,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/server energy_wh"
+                      "options": "sensor.plug_living_server_power energy_wh",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -560,26 +543,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/josh_office/monitors energy_wh"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Monitors"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "yellow",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/tv energy_wh"
+                      "options": "sensor.plug_living_tv_power energy_wh",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -609,25 +574,6 @@
                         "id": "color",
                         "value": {
                           "fixedColor": "semi-dark-blue",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/old_server energy_wh"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Old Server"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "purple",
                           "mode": "fixed"
                         }
                       }
@@ -676,7 +622,7 @@
                 "direction": "h",
                 "maxPerRow": 4,
                 "mode": "variable",
-                "value": "topic"
+                "value": "entity_id"
               },
               "width": 24,
               "x": 0,
@@ -693,7 +639,7 @@
               "height": 15,
               "width": 24,
               "x": 0,
-              "y": 6
+              "y": 12
             }
           },
           {
@@ -706,7 +652,7 @@
               "height": 15,
               "width": 24,
               "x": 0,
-              "y": 21
+              "y": 27
             }
           }
         ]
