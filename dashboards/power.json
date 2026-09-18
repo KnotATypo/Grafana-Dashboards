@@ -27,7 +27,6 @@
       }
     ],
     "cursorSync": "Off",
-    "description": "",
     "editable": true,
     "elements": {
       "panel-2": {
@@ -129,7 +128,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -154,7 +153,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT\n  time_bucket('${__interval}', timestamp) time,\n  LEAST(avg(power), 2000) as avg,\n  topic\nFROM plugs\nWHERE\n  topic IN (${topic})\n  AND $__timeFilter(timestamp)\nGROUP BY time, topic\nORDER BY time;",
+                        "rawSql": "SELECT\n  time_bucket('${__interval}', timestamp) time,\n  LEAST(avg(value), 2000) as avg,\n  entity_id\nFROM plug_power\nWHERE\n  entity_id IN (${entity_id})\n  AND $__timeFilter(timestamp)\nGROUP BY time, entity_id\nORDER BY time;",
                         "sql": {
                           "columns": [
                             {
@@ -189,7 +188,7 @@
                   "spec": {
                     "options": {
                       "fields": [
-                        "topic"
+                        "entity_id"
                       ],
                       "keepFields": false,
                       "naming": {
@@ -230,7 +229,7 @@
                       "tooltip": false,
                       "viz": false
                     },
-                    "insertNulls": 3600000,
+                    "insertNulls": 600000,
                     "lineInterpolation": "smooth",
                     "lineWidth": 1,
                     "pointSize": 5,
@@ -267,26 +266,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/kitchen/fridge avg"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Fridge"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "semi-dark-purple",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/josh_office/pc avg"
+                      "options": "sensor.plug_josh_office_pc_power avg",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -305,7 +286,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/server avg"
+                      "options": "sensor.plug_living_server_power avg",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -324,26 +306,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/josh_office/monitors avg"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Monitors"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "yellow",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/tv avg"
+                      "options": "sensor.plug_living_tv_power avg",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -362,7 +326,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "zigbee2mqtt/plug/bedroom/ac avg"
+                      "options": "sensor.plug_bedroom_ac_power avg",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -373,25 +338,6 @@
                         "id": "color",
                         "value": {
                           "fixedColor": "semi-dark-blue",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zigbee2mqtt/plug/living/old_server avg"
-                    },
-                    "properties": [
-                      {
-                        "id": "displayName",
-                        "value": "Old Server"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "purple",
                           "mode": "fixed"
                         }
                       }
@@ -419,7 +365,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -709,7 +655,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       }
@@ -766,20 +712,7 @@
         ]
       }
     },
-    "links": [
-      {
-        "asDropdown": false,
-        "icon": "external link",
-        "includeVars": false,
-        "keepTime": false,
-        "tags": [],
-        "targetBlank": true,
-        "title": "Source (GitHub)",
-        "tooltip": "View source file in repository",
-        "type": "link",
-        "url": "https://github.com/KnotATypo/Grafana-Dashboards/blob/main/dashboards/power.json"
-      }
-    ],
+    "links": [],
     "liveNow": false,
     "preload": false,
     "tags": [],
@@ -826,19 +759,19 @@
           "allowCustomValue": false,
           "current": {
             "text": [
-              "zigbee2mqtt/plug/living/server",
-              "zigbee2mqtt/plug/josh_office/pc"
+              "sensor.plug_living_tv_power",
+              "sensor.plug_josh_office_pc_power"
             ],
             "value": [
-              "zigbee2mqtt/plug/living/server",
-              "zigbee2mqtt/plug/josh_office/pc"
+              "sensor.plug_living_tv_power",
+              "sensor.plug_josh_office_pc_power"
             ]
           },
-          "definition": "SELECT DISTINCT(topic) \nFROM plugs\nWHERE timestamp \u003e (NOW() - interval '7d');",
+          "definition": "SELECT DISTINCT(entity_id) \nFROM plug_power\nWHERE timestamp \u003e (NOW() - interval '7d');",
           "hide": "dontHide",
           "includeAll": true,
           "multi": true,
-          "name": "topic",
+          "name": "entity_id",
           "options": [],
           "query": {
             "datasource": {
@@ -847,7 +780,29 @@
             "group": "grafana-postgresql-datasource",
             "kind": "DataQuery",
             "spec": {
-              "__legacyStringValue": "SELECT DISTINCT(topic) \nFROM plugs\nWHERE timestamp \u003e (NOW() - interval '7d');"
+              "editorMode": "code",
+              "format": "table",
+              "query": "SELECT DISTINCT(entity_id) \nFROM plug_power\nWHERE timestamp \u003e (NOW() - interval '7d');",
+              "rawQuery": true,
+              "rawSql": "SELECT DISTINCT(entity_id) \nFROM plug_power\nWHERE timestamp \u003e (NOW() - interval '7d');",
+              "refId": "SQLVariableQueryEditor-VariableQuery",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
             },
             "version": "v0"
           },
