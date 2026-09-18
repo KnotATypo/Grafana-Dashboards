@@ -27,7 +27,6 @@
       }
     ],
     "cursorSync": "Off",
-    "description": "",
     "editable": true,
     "elements": {
       "panel-10": {
@@ -297,7 +296,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -322,7 +321,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT\n  timestamp,\n  field,\n  value,\n  topic\nFROM\n  climate\nWHERE\n  field = 'temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND topic not like '%fridge'",
+                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id != 'sensor.josh_office_climate_josh_office_filament_box_temperature'",
                         "sql": {
                           "columns": [
                             {
@@ -379,7 +378,7 @@
                   "spec": {
                     "options": {
                       "fields": [
-                        "topic"
+                        "entity_id"
                       ],
                       "keepFields": false
                     }
@@ -454,7 +453,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "value zigbee2mqtt/climate/josh_office"
+                      "options": "value sensor.climate_josh_office_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -492,7 +492,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "value zigbee2mqtt/climate/bedroom"
+                      "options": "value sensor.climate_bedroom_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -511,7 +512,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "value zigbee2mqtt/climate/living"
+                      "options": "value sensor.climate_living_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -530,7 +532,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "value zigbee2mqtt/climate/balcony"
+                      "options": "value sensor.climate_balcony_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -568,7 +571,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -783,7 +786,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -1054,7 +1057,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -1079,7 +1082,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/living'\n  AND field = 'temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_temperature\nWHERE entity_id = 'sensor.climate_living_temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -1117,7 +1120,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/living'\n  AND field = 'humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_humidity\nWHERE entity_id = 'sensor.climate_living_humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -1276,7 +1279,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -1484,7 +1487,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       },
@@ -1706,7 +1709,7 @@
                 }
               }
             },
-            "version": "13.1.0"
+            "version": "13.2.2"
           }
         }
       }
@@ -1851,20 +1854,7 @@
         ]
       }
     },
-    "links": [
-      {
-        "asDropdown": false,
-        "icon": "external link",
-        "includeVars": false,
-        "keepTime": false,
-        "tags": [],
-        "targetBlank": true,
-        "title": "Source (GitHub)",
-        "tooltip": "View source file in repository",
-        "type": "link",
-        "url": "https://github.com/KnotATypo/Grafana-Dashboards/blob/main/dashboards/climate.json"
-      }
-    ],
+    "links": [],
     "liveNow": true,
     "preload": false,
     "tags": [],
