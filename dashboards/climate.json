@@ -596,7 +596,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/bedroom'\n  AND field = 'temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_temperature \nWHERE entity_id = 'sensor.climate_bedroom_temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -634,7 +634,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/bedroom'\n  AND field = 'humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_humidity \nWHERE entity_id = 'sensor.climate_bedroom_humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -1304,7 +1304,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/balcony'\n  AND (field = 'humidity' OR field = 'temperature')\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_temperature\nWHERE entity_id = 'sensor.climate_balcony_temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -1327,6 +1327,45 @@
                     },
                     "refId": "A"
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "feq8bvywj1kaof"
+                      },
+                      "group": "grafana-postgresql-datasource",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "dataset": "monitoring",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_humidity\nWHERE entity_id = 'sensor.climate_balcony_humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
                 }
               ],
               "queryOptions": {},
@@ -1336,9 +1375,7 @@
                   "kind": "Transformation",
                   "spec": {
                     "options": {
-                      "fields": [
-                        "field"
-                      ],
+                      "fields": [],
                       "keepFields": false,
                       "naming": {
                         "asLabels": true
@@ -1414,34 +1451,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "value temperature"
-                    },
-                    "properties": [
-                      {
-                        "id": "unit",
-                        "value": "celsius"
-                      },
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "semi-dark-purple",
-                          "mode": "fixed"
-                        }
-                      },
-                      {
-                        "id": "displayName",
-                        "value": "Temperature"
-                      },
-                      {
-                        "id": "custom.axisPlacement",
-                        "value": "left"
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "value humidity"
+                      "options": "value",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -1462,6 +1473,33 @@
                       {
                         "id": "custom.axisPlacement",
                         "value": "right"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "A"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "celsius"
+                      },
+                      {
+                        "id": "displayName",
+                        "value": "Temperature"
+                      },
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "semi-dark-purple",
+                          "mode": "fixed"
+                        }
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "left"
                       }
                     ]
                   }
@@ -1512,7 +1550,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/josh_office'\n  AND field = 'temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_temperature\nWHERE entity_id = 'sensor.climate_josh_office_temperature'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
@@ -1550,7 +1588,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT \"timestamp\", field, value\nFROM climate\nWHERE topic = 'zigbee2mqtt/climate/josh_office'\n  AND field = 'humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
+                        "rawSql": "SELECT \"timestamp\", value\nFROM climate_humidity \nWHERE entity_id = 'sensor.climate_josh_office_humidity'\n  AND \"timestamp\" \u003e= ($__timeFrom()::timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo()::timestamp + interval '6 hours')",
                         "sql": {
                           "columns": [
                             {
