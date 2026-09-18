@@ -321,7 +321,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id != 'sensor.josh_office_climate_josh_office_filament_box_temperature'",
+                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id ilike any (ARRAY[${room:sqlstring}])",
                         "sql": {
                           "columns": [
                             {
@@ -1750,62 +1750,49 @@
             "spec": {
               "collapse": false,
               "layout": {
-                "kind": "GridLayout",
+                "kind": "AutoGridLayout",
                 "spec": {
+                  "columnWidthMode": "standard",
                   "items": [
                     {
-                      "kind": "GridLayoutItem",
+                      "kind": "AutoGridLayoutItem",
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-3"
-                        },
-                        "height": 9,
-                        "width": 12,
-                        "x": 0,
-                        "y": 0
+                        }
                       }
                     },
                     {
-                      "kind": "GridLayoutItem",
+                      "kind": "AutoGridLayoutItem",
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-13"
-                        },
-                        "height": 9,
-                        "width": 12,
-                        "x": 12,
-                        "y": 0
+                        }
                       }
                     },
                     {
-                      "kind": "GridLayoutItem",
+                      "kind": "AutoGridLayoutItem",
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-6"
-                        },
-                        "height": 9,
-                        "width": 12,
-                        "x": 0,
-                        "y": 9
+                        }
                       }
                     },
                     {
-                      "kind": "GridLayoutItem",
+                      "kind": "AutoGridLayoutItem",
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-4"
-                        },
-                        "height": 9,
-                        "width": 12,
-                        "x": 12,
-                        "y": 9
+                        }
                       }
                     }
-                  ]
+                  ],
+                  "maxColumnCount": 2,
+                  "rowHeightMode": "standard"
                 }
               },
               "title": "Individual rooms"
@@ -1880,6 +1867,77 @@
       "weekStart": "monday"
     },
     "title": "Climate",
-    "variables": []
+    "variables": [
+      {
+        "kind": "QueryVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": [
+              "sensor.climate_balcony",
+              "sensor.climate_bedroom",
+              "sensor.climate_josh_office",
+              "sensor.climate_living"
+            ],
+            "value": [
+              "sensor.climate_balcony%",
+              "sensor.climate_bedroom%",
+              "sensor.climate_josh_office%",
+              "sensor.climate_living%"
+            ]
+          },
+          "definition": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Rooms",
+          "multi": true,
+          "name": "room",
+          "options": [],
+          "query": {
+            "datasource": {
+              "name": "feq8bvywj1kaof"
+            },
+            "group": "grafana-postgresql-datasource",
+            "kind": "DataQuery",
+            "spec": {
+              "dataset": "monitoring",
+              "editorMode": "code",
+              "format": "table",
+              "meta": {
+                "textField": "regexp_replace",
+                "valueField": "?column?"
+              },
+              "query": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+              "rawQuery": true,
+              "rawSql": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+              "refId": "SQLVariableQueryEditor-VariableQuery",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            },
+            "version": "v0"
+          },
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
+        }
+      }
+    ]
   }
 }
