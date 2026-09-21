@@ -50,7 +50,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT time_bucket('1 day', timestamp) AS bucket, \n       topic,\n       AVG(value) as avg_temp\nFROM climate\nWHERE field = 'temperature'\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, topic",
+                        "rawSql": "SELECT time_bucket('1 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature \nWHERE entity_id ilike any (ARRAY[${room:sqlstring}])\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
                         "sql": {
                           "columns": [
                             {
@@ -101,7 +101,7 @@
                   "spec": {
                     "options": {
                       "fields": [
-                        "topic"
+                        "entity_id"
                       ],
                       "keepFields": false,
                       "naming": {
@@ -168,8 +168,7 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": 0
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -182,7 +181,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/josh_office"
+                      "options": "avg_temp sensor.climate_josh_office_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -220,7 +220,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/bedroom"
+                      "options": "avg_temp sensor.climate_bedroom_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -239,7 +240,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/living"
+                      "options": "avg_temp sensor.climate_living_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -258,7 +260,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/balcony"
+                      "options": "avg_temp sensor.climate_balcony_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -811,7 +814,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT time_bucket('2 day', timestamp) AS bucket, \n       topic,\n       AVG(value) as avg_temp\nFROM climate\nWHERE field = 'temperature'\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, topic",
+                        "rawSql": "SELECT time_bucket('2 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature\nWHERE entity_id ilike any (ARRAY[${room:sqlstring}])\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
                         "sql": {
                           "columns": [
                             {
@@ -862,7 +865,7 @@
                   "spec": {
                     "options": {
                       "fields": [
-                        "topic"
+                        "entity_id"
                       ],
                       "keepFields": false,
                       "naming": {
@@ -929,8 +932,7 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": 0
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -943,7 +945,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/josh_office"
+                      "options": "avg_temp sensor.climate_josh_office_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -981,7 +984,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/bedroom"
+                      "options": "avg_temp sensor.climate_bedroom_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -1000,7 +1004,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/living"
+                      "options": "avg_temp sensor.climate_living_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
@@ -1019,7 +1024,8 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "avg_temp zigbee2mqtt/climate/balcony"
+                      "options": "avg_temp sensor.climate_balcony_temperature",
+                      "scope": "series"
                     },
                     "properties": [
                       {
