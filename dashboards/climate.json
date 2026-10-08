@@ -325,7 +325,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id ilike any (ARRAY[${room:sqlstring}])",
+                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id ~ '^${room:regex}_[th].+$'",
                         "sql": {
                           "columns": [
                             {
@@ -425,12 +425,12 @@
                     "lineStyle": {
                       "fill": "solid"
                     },
-                    "lineWidth": 1,
+                    "lineWidth": 2,
                     "pointSize": 5,
                     "scaleDistribution": {
                       "type": "linear"
                     },
-                    "showPoints": "auto",
+                    "showPoints": "never",
                     "showValues": false,
                     "spanNulls": 86400000,
                     "stacking": {
@@ -2163,7 +2163,7 @@
               "sensor.climate_living%"
             ]
           },
-          "definition": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+          "definition": "SELECT DISTINCT\n  regexp_replace(entity_id, '_[^_]+$', '')\nFROM climate_temperature;",
           "hide": "dontHide",
           "includeAll": false,
           "label": "Rooms",
@@ -2182,11 +2182,11 @@
               "format": "table",
               "meta": {
                 "textField": "regexp_replace",
-                "valueField": "?column?"
+                "valueField": "regexp_replace"
               },
-              "query": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+              "query": "SELECT DISTINCT\n  regexp_replace(entity_id, '_[^_]+$', '')\nFROM climate_temperature;",
               "rawQuery": true,
-              "rawSql": "SELECT DISTINCT regexp_replace(entity_id, '_[^_]+$', ''), regexp_replace(entity_id, '_[^_]+$', '') || '%' FROM climate_temperature;",
+              "rawSql": "SELECT DISTINCT\n  regexp_replace(entity_id, '_[^_]+$', '')\nFROM climate_temperature;",
               "refId": "SQLVariableQueryEditor-VariableQuery",
               "sql": {
                 "columns": [
