@@ -50,7 +50,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT time_bucket('1 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature \nWHERE entity_id ilike any (ARRAY[${room:sqlstring}])\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
+                        "rawSql": "SELECT time_bucket('1 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature \nWHERE entity_id ~ '^${room:regex}_temperature$'\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
                         "sql": {
                           "columns": [
                             {
@@ -300,7 +300,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -325,7 +325,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id ~ '^${room:regex}_[th].+$'",
+                        "rawSql": "SELECT\n  timestamp,\n  value,\n  entity_id\nFROM\n  climate_temperature\nWHERE\n  \"timestamp\" \u003e= ($__timeFrom() :: timestamp - interval '6 hours')\n  AND \"timestamp\" \u003c= ($__timeTo() :: timestamp + interval '6 hours')\n  AND entity_id ~ '^${room:regex}_temperature$'",
                         "sql": {
                           "columns": [
                             {
@@ -575,7 +575,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -790,7 +790,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -815,7 +815,7 @@
                         "editorMode": "code",
                         "format": "table",
                         "rawQuery": true,
-                        "rawSql": "SELECT time_bucket('2 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature\nWHERE entity_id ilike any (ARRAY[${room:sqlstring}])\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
+                        "rawSql": "SELECT time_bucket('2 day', timestamp) AS bucket, \n       entity_id,\n       AVG(value) as avg_temp\nFROM climate_temperature\nWHERE entity_id ~ '^${room:regex}_temperature$'\n  AND $__timeFilter(timestamp)\nGROUP BY bucket, entity_id",
                         "sql": {
                           "columns": [
                             {
@@ -1065,7 +1065,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -1287,7 +1287,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -1509,7 +1509,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -1755,7 +1755,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       },
@@ -1977,7 +1977,7 @@
                 }
               }
             },
-            "version": "13.2.2"
+            "version": "13.2.3"
           }
         }
       }
