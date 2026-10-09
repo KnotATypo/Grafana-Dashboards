@@ -2157,10 +2157,10 @@
               "sensor.climate_living"
             ],
             "value": [
-              "sensor.climate_balcony%",
-              "sensor.climate_bedroom%",
-              "sensor.climate_josh_office%",
-              "sensor.climate_living%"
+              "sensor.climate_balcony",
+              "sensor.climate_bedroom",
+              "sensor.climate_josh_office",
+              "sensor.climate_living"
             ]
           },
           "definition": "SELECT DISTINCT\n  regexp_replace(entity_id, '_[^_]+$', '')\nFROM climate_temperature;",
