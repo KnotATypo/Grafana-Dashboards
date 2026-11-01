@@ -27,7 +27,6 @@
       }
     ],
     "cursorSync": "Off",
-    "description": "",
     "editable": true,
     "elements": {
       "panel-1": {
@@ -73,7 +72,7 @@
                       },
                       "version": "v0"
                     },
-                    "refId": "A"
+                    "refId": "temperature"
                   }
                 }
               ],
