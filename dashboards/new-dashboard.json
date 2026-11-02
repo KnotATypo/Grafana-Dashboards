@@ -113,6 +113,45 @@
                     },
                     "refId": "power"
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "feq8bvywj1kaof"
+                      },
+                      "group": "grafana-postgresql-datasource",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "dataset": "monitoring",
+                        "editorMode": "code",
+                        "format": "table",
+                        "rawQuery": true,
+                        "rawSql": "SELECT\n  value,\n  timestamp\nFROM\n  climate_humidity \nWHERE $__timeFilter(timestamp) AND entity_id = 'sensor.climate_bedroom_humidity'\nORDER BY\n  timestamp",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "humidity"
+                  }
                 }
               ],
               "queryOptions": {},
@@ -209,6 +248,18 @@
                       {
                         "id": "max",
                         "value": 2000
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byFrameRefID",
+                      "options": "humidity"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "humidity"
                       }
                     ]
                   }
