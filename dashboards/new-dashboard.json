@@ -249,7 +249,7 @@
           }
         ],
         "maxColumnCount": 3,
-        "rowHeightMode": "standard"
+        "rowHeightMode": "tall"
       }
     },
     "links": [],
